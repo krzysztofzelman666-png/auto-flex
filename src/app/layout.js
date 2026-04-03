@@ -21,21 +21,39 @@ export default function RootLayout({ children }) {
     <html lang="pl">
       <body className="min-h-full flex flex-col">
         {/* TU WKLEJAMY NAWIGACJĘ */}
-        <nav style={{ 
-          padding: '20px', S
-          backgroundColor: '#f8f8f8', 
-          borderBottom: '1px solid #ddd',
-          display: 'flex',
-          gap: '20px' 
-        }}>
-          <a href="/" style={{ fontWeight: 'bold', textDecoration: 'none', color: 'black' }}>🏠 Lista ogłoszeń</a>
-          <a href="/dodaj" style={{ fontWeight: 'bold', textDecoration: 'none', color: 'black' }}>➕ Dodaj auto</a>
+        <nav
+          style={{
+            padding: "20px",
+            backgroundColor: "#f8f8f8",
+            borderBottom: "1px solid #ddd",
+            display: "flex",
+            gap: "20px",
+          }}
+        >
+          <a
+            href="/"
+            style={{
+              fontWeight: "bold",
+              textDecoration: "none",
+              color: "black",
+            }}
+          >
+            🏠 Lista ogłoszeń
+          </a>
+          <a
+            href="/dodaj"
+            style={{
+              fontWeight: "bold",
+              textDecoration: "none",
+              color: "black",
+            }}
+          >
+            ➕ Dodaj auto
+          </a>
         </nav>
 
         {/* Tutaj Next.js wstrzykuje treść Twoich podstron */}
-        <main style={{ flex: 1 }}>
-          {children}
-        </main>
+        <main style={{ flex: 1 }}>{children}</main>
       </body>
     </html>
   );

@@ -11,9 +11,9 @@ export default function DodajAuto() {
     e.preventDefault()
     if (!supabase) return alert("Błąd bazy!");
     setLoading(true)
-S
+
     const formData = new FormData(e.target)
-    const { error } = await supabase.from('cars').insert([{S
+    const { error } = await supabase.from('cars').insert([{
       brand: formData.get('brand'),
       model: formData.get('model'),
       price: parseInt(formData.get('price')),
