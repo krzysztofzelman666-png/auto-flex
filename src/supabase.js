@@ -1,13 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 
-let supabase = null
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-if (typeof window !== 'undefined') {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  if (url && key) {
-    supabase = createClient(url, key)
-  }
-}
-
-export { supabase }
+export const supabase = (url && key) ? createClient(url, key) : null
