@@ -24,6 +24,7 @@ export default function Home() {
             cena: auto.price,
             rok: auto.year,
             opis: auto.description,
+            imageUrl: auto.image_url,
           })),
         );
       }
@@ -120,26 +121,36 @@ export default function Home() {
                   overflow: "hidden",
                 }}
               >
-                {/* GÓRNA BELKA KARTY */}
-                <div
-                  style={{
-                    background: "#1e3a5f",
-                    height: "80px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <span
-                    style={{
-                      color: "#60a5fa",
-                      fontSize: "13px",
-                      fontWeight: "500",
-                      letterSpacing: "1px",
-                    }}
-                  >
-                    {auto.rok ?? "—"}
-                  </span>
+                {/* ZDJĘCIE LUB PLACEHOLDER */}
+                <div style={{ height: "140px", overflow: "hidden" }}>
+                  {auto.imageUrl ? (
+                    <img
+                      src={auto.imageUrl}
+                      alt={auto.nazwa}
+                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                  ) : (
+                    <div
+                      style={{
+                        background: "#1e3a5f",
+                        height: "100%",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <span
+                        style={{
+                          color: "#60a5fa",
+                          fontSize: "13px",
+                          fontWeight: "500",
+                          letterSpacing: "1px",
+                        }}
+                      >
+                        {auto.rok ?? "—"}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <div style={{ padding: "14px 16px" }}>
