@@ -7,7 +7,7 @@ import { supabase } from "@/supabase";
 export default function Home() {
   const [dni, setDni] = useState(5);
   const [listaAut, setListaAut] = useState([]);
-
+  const [user, setUser] = useState(null); // ← dodaj tę linię
   useEffect(() => {
     async function pobierzAuta() {
       if (!supabase) return;
@@ -30,6 +30,7 @@ export default function Home() {
       }
     }
     pobierzAuta();
+    supabase?.auth.getUser().then(({ data }) => setUser(data?.user ?? null));
   }, []);
 
   return (
@@ -127,7 +128,11 @@ export default function Home() {
                     <img
                       src={auto.imageUrl}
                       alt={auto.nazwa}
-                      style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
                     />
                   ) : (
                     <div
@@ -152,7 +157,6 @@ export default function Home() {
                     </div>
                   )}
                 </div>
-
                 <div style={{ padding: "14px 16px" }}>
                   <p
                     style={{
@@ -196,51 +200,40 @@ export default function Home() {
                       PLN
                     </span>
                   </div>
-                  <button
-                    style={{
-                      width: "100%",
-                      background: "#2563eb",
-                      color: "#fff",
-                      border: "none",
-                      borderRadius: "6px",
-                      padding: "8px",
-                      fontSize: "13px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    Rezerwuj
-                  </button>
-                  <button
-                    onClick={async () => {
-                      if (!confirm("Czy na pewno chcesz usunąć to auto?"))
-                        return;
-                      const { error } = await supabase
-                        .from("cars")
-                        .delete()
-                        .eq("id", auto.id);
-                      if (error) {
-                        alert("Błąd usuwania: " + error.message);
-                      } else {
-                        setListaAut((prev) =>
-                          prev.filter((a) => a.id !== auto.id),
-                        );
-                      }
-                    }}
-                    style={{
-                      width: "100%",
-                      background: "transparent",
-                      color: "#ef4444",
-                      border: "1px solid #ef4444",
-                      borderRadius: "6px",
-                      padding: "8px",
-                      fontSize: "13px",
-                      cursor: "pointer",
-                      marginTop: "8px",
-                    }}
-                  >
-                    Usuń
-                  </button>
-                </div>
+                  {user && (
+                    <button
+                      onClick={async () => {
+                        if (!confirm("Czy na pewno chcesz usunąć to auto?"))
+                          return;
+                        const { error } = await supabase
+                          .from("cars")
+                          .delete()
+                          .eq("id", auto.id);
+                        if (error) {
+                          alert("Błąd usuwania: " + error.message);
+                        } else {
+                          setListaAut((prev) =>
+                            prev.filter((a) => a.id !== auto.id),
+                          );
+                        }
+                      }}
+                      style={{
+                        width: "100%",
+                        background: "transparent",
+                        color: "#ef4444",
+                        border: "1px solid #ef4444",
+                        borderRadius: "6px",
+                        padding: "8px",
+                        fontSize: "13px",
+                        cursor: "pointer",
+                        marginTop: "8px",
+                      }}
+                    >
+                      Usuń
+                    </button>
+                  )}
+                </div>{" "}
+                // ← TO ZOSTAJE
               </div>
             ))}
           </div>
