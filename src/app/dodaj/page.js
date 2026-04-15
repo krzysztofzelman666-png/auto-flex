@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
 export const runtime = "edge";
 
 import { supabase } from "@/supabase";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function DodajAuto() {

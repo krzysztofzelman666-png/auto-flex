@@ -200,7 +200,7 @@ export default function Home() {
                       PLN
                     </span>
                   </div>
-                  {user && (
+                  {user?.email === "zelmer666@gmail.com" && (
                     <button
                       onClick={async () => {
                         if (!confirm("Czy na pewno chcesz usunąć to auto?"))
